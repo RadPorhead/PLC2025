@@ -2,7 +2,7 @@
 
 ## Rodrigo Soares PG60424
 
-![alt text](./foto.jpg)
+![alt text](foto.jpg)
 
 ### Resumo:
 
