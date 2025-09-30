@@ -1,0 +1,13 @@
+# TPC2
+
+## Rodrigo Soares PG60424
+
+![alt text](foto.jpg)
+
+### Resumo:
+
+- Exercício: Escrever a expressão regular correspondente a strings binárias que não incluem a subsequência "011".
+
+### Lista de Resultados:
+
+- Resolução do exercício: 1*(0+1?)*
