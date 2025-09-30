@@ -6,8 +6,8 @@
 
 ### Resumo:
 
-- Exercício: Escrever a expressão regular correspondente a strings binárias que não incluem a subsequência "011".
+- Exercício: Criar em Python um pequeno conversor de MarkDown para HTML.
 
 ### Lista de Resultados:
 
-- Resolução do exercício: 1*(0+1?)*
+- [Ver notebook](TPC2.ipynb)
