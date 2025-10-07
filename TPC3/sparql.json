@@ -1,0 +1,42 @@
+[
+    {
+        "id": "SELECT",
+        "expreg": "SELECT"
+    },
+    {
+        "id": "WHERE",
+        "expreg": "WHERE"
+    },
+    {
+        "id": "var",
+        "expreg": "\\?\\w+"
+    },
+    {
+        "id": "ID",
+        "expreg": "(?:\\w+)?:\\w+"
+    },
+    {
+        "id": "END",
+        "expreg": "\\."
+    },
+    {
+        "id": "PA",
+        "expreg": "{"
+    },
+    {
+        "id": "PF",
+        "expreg": "}"
+    },
+    {
+        "id": "SKIP",
+        "expreg": "[ \\t]"
+    },
+    {
+        "id": "NEWLINE",
+        "expreg": "\\n"
+    },
+    {
+        "id": "ERRO",
+        "expreg": "."
+    }
+]
