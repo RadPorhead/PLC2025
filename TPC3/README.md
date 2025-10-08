@@ -11,3 +11,5 @@
 ### Lista de Resultados:
 
 - [Ver JSON](sparql.json)
+
+- [Ver output](output.txt)
