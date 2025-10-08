@@ -13,8 +13,8 @@ def main():
     try:
         with open(filename, 'r', encoding='utf-8') as f:
             tokens = json.load(f)
-           
-        tokens_regex = '|'.join([f"(?P<{t['id']}>{t['expreg']})" for t in tokens])
+
+        tokens_regex = '|'.join([f'(?P<{t['id']}>{t['expreg']})' for t in tokens])
 
         code = f"""
 import sys
@@ -22,28 +22,29 @@ import re
 
 def tokenize(input_string):
     reconhecidos = []
-    linha = 1
     mo = re.finditer(r'{tokens_regex}', input_string)
     for m in mo:
         dic = m.groupdict()
         if dic['{tokens[0]['id']}']:
-            t = ("{tokens[0]['id']}", dic['{tokens[0]['id']}'], linha, m.span())
+            t = ("{tokens[0]['id']}", dic['{tokens[0]['id']}'], nlinha, m.span())
 """
 
         for t in tokens[1:]:
             code += f"""
         elif dic['{t['id']}']:
-            t = ("{t['id']}", dic['{t['id']}'], linha, m.span())
+            t = ("{t['id']}", dic['{t['id']}'], nlinha, m.span())
     """
         code += f"""
         else:
-            t = ("UNKNOWN", m.group(), linha, m.span())
+            t = ("UNKNOWN", m.group(), nlinha, m.span())
         if not dic['SKIP'] and t[0] != 'UNKNOWN': reconhecidos.append(t)
     return reconhecidos
 
+nlinha = 1
 for linha in sys.stdin:
     for tok in tokenize(linha):
-        print(tok)    
+        print(tok) 
+    nlinha += 1   
 """
         print(code)
 
