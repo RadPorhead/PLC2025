@@ -1,4 +1,4 @@
-# TPC2
+# TPC3
 
 ## Rodrigo Soares PG60424
 
@@ -6,10 +6,8 @@
 
 ### Resumo:
 
-- Exercício: Extrair tokens de query SPARQL
+- Exercício: [Ver PDF](tpc3.pdf)
 
 ### Lista de Resultados:
 
-- [Ver JSON](sparql.json)
-
-- [Ver output](output.txt)
+- [Ver notebook](TPC2.ipynb)

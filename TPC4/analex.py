@@ -4,7 +4,7 @@ import re
 
 def tokenize(input_string):
     reconhecidos = []
-    mo = re.finditer(r'(?P<SELECT>SELECT)|(?P<WHERE>WHERE)|(?P<var>\?\w+)|(?P<ID>(?:\w+)?:\w+)|(?P<END>\.)|(?P<PA>{)|(?P<PF>})|(?P<SKIP>[ \t])|(?P<NEWLINE>\n)|(?P<ERRO>.)', input_string)
+    mo = re.finditer(r'(?P<SELECT>select)|(?P<WHERE>where)|(?P<LIMIT>LIMIT)|(?P<A>\ba\b)|(?P<LANGUAGE>@[a-zA-Z]+)|(?P<INT>\d+)|(?P<STRING>".*?")|(?P<var>\?\w+)|(?P<ID>(?:\w+)?:\w+)|(?P<END>\.)|(?P<PA>{)|(?P<PF>})|(?P<COMMENT># .*)|(?P<SKIP>[ \t]+)|(?P<NEWLINE>\n)|(?P<ERRO>.)', input_string)
     for m in mo:
         dic = m.groupdict()
         if dic['SELECT']:
@@ -12,6 +12,21 @@ def tokenize(input_string):
 
         elif dic['WHERE']:
             t = ("WHERE", dic['WHERE'], nlinha, m.span())
+    
+        elif dic['LIMIT']:
+            t = ("LIMIT", dic['LIMIT'], nlinha, m.span())
+    
+        elif dic['A']:
+            t = ("A", dic['A'], nlinha, m.span())
+    
+        elif dic['LANGUAGE']:
+            t = ("LANGUAGE", dic['LANGUAGE'], nlinha, m.span())
+    
+        elif dic['INT']:
+            t = ("INT", dic['INT'], nlinha, m.span())
+    
+        elif dic['STRING']:
+            t = ("STRING", dic['STRING'], nlinha, m.span())
     
         elif dic['var']:
             t = ("var", dic['var'], nlinha, m.span())
@@ -27,6 +42,9 @@ def tokenize(input_string):
     
         elif dic['PF']:
             t = ("PF", dic['PF'], nlinha, m.span())
+    
+        elif dic['COMMENT']:
+            t = ("COMMENT", dic['COMMENT'], nlinha, m.span())
     
         elif dic['SKIP']:
             t = ("SKIP", dic['SKIP'], nlinha, m.span())

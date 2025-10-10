@@ -1,11 +1,31 @@
 [
     {
         "id": "SELECT",
-        "expreg": "SELECT"
+        "expreg": "select"
     },
     {
         "id": "WHERE",
-        "expreg": "WHERE"
+        "expreg": "where"
+    },
+    {
+        "id": "LIMIT",
+        "expreg": "LIMIT"
+    },
+    {
+        "id": "A",
+        "expreg": "\\ba\\b"
+    },
+    {
+        "id": "LANGUAGE",
+        "expreg": "@[a-zA-Z]+"
+    },
+    {
+        "id": "INT",
+        "expreg": "\\d+"
+    },
+    {
+        "id": "STRING",
+        "expreg": "\".*?\""
     },
     {
         "id": "var",
@@ -28,8 +48,12 @@
         "expreg": "}"
     },
     {
+        "id": "COMMENT",
+        "expreg": "# .*"
+    },
+    {
         "id": "SKIP",
-        "expreg": "[ \\t]"
+        "expreg": "[ \\t]+"
     },
     {
         "id": "NEWLINE",

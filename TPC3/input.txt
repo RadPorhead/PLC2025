@@ -1,5 +1,0 @@
-SELECT      ?a     ?b     ?c     WHERE{
-    ?a    Rdf:type   :Pessoa.
-    ?a    :temIdade   ?b
-    ?a     :eImaoDe   ?c
-}
