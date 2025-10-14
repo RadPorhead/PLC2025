@@ -1,0 +1,56 @@
+[
+    {
+        "cod": "A01",
+        "nome": "agua 0.5L",
+        "quant": 9,
+        "preco": 0.7
+    },
+    {
+        "cod": "A02",
+        "nome": "refrigerante",
+        "quant": 5,
+        "preco": 1.2
+    },
+    {
+        "cod": "A03",
+        "nome": "sumo laranja",
+        "quant": 7,
+        "preco": 1.0
+    },
+    {
+        "cod": "B01",
+        "nome": "chocolate",
+        "quant": 15,
+        "preco": 0.9
+    },
+    {
+        "cod": "B02",
+        "nome": "barras de cereais",
+        "quant": 12,
+        "preco": 1.1
+    },
+    {
+        "cod": "C01",
+        "nome": "bolachas",
+        "quant": 20,
+        "preco": 0.85
+    },
+    {
+        "cod": "C02",
+        "nome": "snack salgado",
+        "quant": 8,
+        "preco": 1.5
+    },
+    {
+        "cod": "D01",
+        "nome": "cafe 20cl",
+        "quant": 6,
+        "preco": 1.0
+    },
+    {
+        "cod": "D02",
+        "nome": "cha 20cl",
+        "quant": 10,
+        "preco": 0.8
+    }
+]
