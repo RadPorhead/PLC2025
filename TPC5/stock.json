@@ -2,7 +2,7 @@
     {
         "cod": "A01",
         "nome": "agua 0.5L",
-        "quant": 9,
+        "quant": 10,
         "preco": 0.7
     },
     {
@@ -25,7 +25,7 @@
     },
     {
         "cod": "B02",
-        "nome": "barras de cereais",
+        "nome": "barra cereais",
         "quant": 12,
         "preco": 1.1
     },

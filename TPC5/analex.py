@@ -9,7 +9,7 @@ stock = [
     {"cod": "A02", "nome": "refrigerante","quant": 5,  "preco": 1.20},
     {"cod": "A03", "nome": "sumo laranja","quant": 7, "preco": 1.00},
     {"cod": "B01", "nome": "chocolate",    "quant": 15, "preco": 0.90},
-    {"cod": "B02", "nome": "barras de cereais", "quant": 12, "preco": 1.10},
+    {"cod": "B02", "nome": "barra cereais", "quant": 12, "preco": 1.10},
     {"cod": "C01", "nome": "bolachas",   "quant": 20, "preco": 0.85},
     {"cod": "C02", "nome": "snack salgado", "quant": 8, "preco": 1.50},
     {"cod": "D01", "nome": "cafe 20cl",       "quant": 6, "preco": 1.00},
@@ -78,10 +78,10 @@ def t_SELECIONAR(t):
 def dar_troco(valor):
     moedas = [200, 100, 50, 20, 10, 5, 2, 1]  # em cêntimos
     troco = []
-    restante = int(round(valor * 100))
+    restante = round(valor * 100) # saldo em centimos
 
     for m in moedas:
-        qtd = restante // m
+        qtd = restante // m #quantidade de cada moeda
         if qtd:
             troco.append((qtd, m))
             restante %= m
@@ -94,7 +94,7 @@ def dar_troco(valor):
             partes.append(f"{qtd}x {m}c")
 
     if len(partes) > 1:
-        return ", ".join(partes) 
+        return ", ".join(partes[:-1]) + " e " + partes[-1] 
     else:
         return partes[0] if partes else "sem troco"
 
