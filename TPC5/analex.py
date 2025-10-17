@@ -105,7 +105,7 @@ def t_SAIR(t):
         print(f"maq: Pode retirar o troco: {dar_troco(saldo)}.")
     else:
         print("maq: Sem troco.")
-    print(".\nmaq: Até à próxima")
+    print("maq: Até à próxima")
     return t
 
 def t_error(t):
