@@ -2,7 +2,7 @@
     {
         "cod": "A01",
         "nome": "agua 0.5L",
-        "quant": 10,
+        "quant": 9,
         "preco": 0.7
     },
     {
@@ -38,7 +38,7 @@
     {
         "cod": "C02",
         "nome": "snack salgado",
-        "quant": 7,
+        "quant": 8,
         "preco": 1.5
     },
     {
