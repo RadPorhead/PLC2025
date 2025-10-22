@@ -23,6 +23,7 @@
 # P14:        | num NCont
 
 from analex import lexer
+import sys
 
 prox_simb = ('Erro', '', 0, 0)
 
@@ -42,7 +43,7 @@ def rec_PaCont():
     print("Derivando por P9: PaCont -> num NCont")
     rec_term('NUM')
     rec_NCont()
-    print("Reconheci P9: PaCont -> num NCont")
+    #print("Reconheci P9: PaCont -> num NCont")
 
 
 # P13: MCont -> pa PaCont
@@ -54,12 +55,12 @@ def rec_MCont():
         print("Derivando por P13: MCont -> pa PaCont")
         rec_term('PA')
         rec_PaCont()
-        print("Reconheci P13: MCont -> pa PaCont")
+        #print("Reconheci P13: MCont -> pa PaCont")
     elif prox_simb.type == 'NUM':
         print("Derivando por P14: MCont -> num NCont")
         rec_term('NUM')
         rec_NCont()
-        print("Reconheci P14: MCont -> num NCont")
+        #print("Reconheci P14: MCont -> num NCont")
     else:
         parserError(prox_simb)
 
@@ -69,16 +70,19 @@ def rec_MCont():
 
 def rec_PfCont():
     global prox_simb
-    if prox_simb.type == 'MUL':
-        print("Derivando por P10: PfCont -> mul MCont")
-        rec_term('MUL')
-        rec_MCont()
-        print("Reconheci P10: PfCont -> mul MCont")
-    elif prox_simb.type == 'DIV':
-        print("Derivando por P11: PfCont -> div MCont")
-        rec_term('DIV')
-        rec_MCont()
-        print("Reconheci P11: PfCont -> div MCont")
+    if prox_simb is not None:
+        if prox_simb.type == 'MUL':
+            print("Derivando por P10: PfCont -> mul MCont")
+            rec_term('MUL')
+            rec_MCont()
+            #print("Reconheci P10: PfCont -> mul MCont")
+        elif prox_simb.type == 'DIV':
+            print("Derivando por P11: PfCont -> div MCont")
+            rec_term('DIV')
+            rec_MCont()
+            #print("Reconheci P11: PfCont -> div MCont")
+        else:
+            print("Derivando por P12: PfCont -> ε")
     else:
         print("Derivando por P12: PfCont -> ε")
 
@@ -92,35 +96,38 @@ def rec_PfCont():
 
 def rec_NCont():
     global prox_simb
-    if prox_simb.type == 'SUM':
-        print("Derivando por P3: NCont -> sum num NCont")
-        rec_term('SUM')
-        rec_term('NUM')
-        rec_NCont()
-        print("Reconheci P3: NCont -> sum num NCont")
-    elif prox_simb.type == 'SUB':
-        print("Derivando por P4: NCont -> sub num NCont")
-        rec_term('SUB')
-        rec_term('NUM')
-        rec_NCont()
-        print("Reconheci P4: NCont -> sub num NCont")
-    elif prox_simb.type == 'MUL':
-        print("Derivando por P5: NCont -> mul MCont")
-        rec_term('MUL')
-        rec_MCont()
-        print("Reconheci P5: NCont -> mul MCont")
-    elif prox_simb.type == 'DIV':
-        print("Derivando por P6: NCont -> div MCont")
-        rec_term('DIV')
-        rec_MCont()
-        print("Reconheci P6: NCont -> div MCont")
-    elif prox_simb.type == 'PF':
-        print("Derivando por P7: NCont -> pf PfCont")
-        rec_term('PF')
-        rec_PfCont()
-        print("Reconheci P7: NCont -> pf PfCont")
+    if prox_simb is not None:
+        if prox_simb.type == 'SUM':
+            print("Derivando por P3: NCont -> sum num NCont")
+            rec_term('SUM')
+            rec_term('NUM')
+            rec_NCont()
+            #print("Reconheci P3: NCont -> sum num NCont")
+        elif prox_simb.type == 'SUB':
+            print("Derivando por P4: NCont -> sub num NCont")
+            rec_term('SUB')
+            rec_term('NUM')
+            rec_NCont()
+            #print("Reconheci P4: NCont -> sub num NCont")
+        elif prox_simb.type == 'MUL':
+            print("Derivando por P5: NCont -> mul MCont")
+            rec_term('MUL')
+            rec_MCont()
+            #print("Reconheci P5: NCont -> mul MCont")
+        elif prox_simb.type == 'DIV':
+            print("Derivando por P6: NCont -> div MCont")
+            rec_term('DIV')
+            rec_MCont()
+            #print("Reconheci P6: NCont -> div MCont")
+        elif prox_simb.type == 'PF':
+            print("Derivando por P7: NCont -> pf PfCont")
+            rec_term('PF')
+            rec_PfCont()
+            #print("Reconheci P7: NCont -> pf PfCont")
+        else:
+            print("Derivando por P8: NCont -> ε")
     else:
-        print("Derivando por P8: NCont -> ε")                   
+        print("Derivando por P8: NCont -> ε")              
 
 # P1: S -> num NCont
 # P2:    | pa PaCont 
@@ -134,12 +141,12 @@ def rec_S():
         print("Derivando por P1: S -> num NCont")
         rec_term('NUM')
         rec_NCont()
-        print("Reconheci P1: S -> num NCont")
+        #print("Reconheci P1: S -> num NCont")
     elif prox_simb.type == 'PA':
         print("Derivando por P2: S -> pa PaCont")
         rec_term('PA')
         rec_PaCont()
-        print("Reconheci P2: S -> pa PaCont")
+        #print("Reconheci P2: S -> pa PaCont")
     else:
         parserError(prox_simb)
 
@@ -151,4 +158,4 @@ def rec_Parser(data):
     print("That's all folks!")
 
 
-rec_Parser(input("Introduza uma Expressão: "))
+rec_Parser(sys.stdin.read())

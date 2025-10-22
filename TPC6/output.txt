@@ -1,5 +1,7 @@
 Derivando por P1: S -> num NCont
 Derivando por P3: NCont -> sum num NCont
+Derivando por P8: NCont -> ε
+That's all folks!
 
 Derivando por P2: S -> pa PaCont
 Derivando por P9: PaCont -> num NCont
@@ -11,3 +13,5 @@ Derivando por P9: PaCont -> num NCont
 Derivando por P6: NCont -> div MCont
 Derivando por P14: MCont -> num NCont
 Derivando por P7: NCont -> pf PfCont
+Derivando por P12: PfCont -> ε
+That's all folks!
