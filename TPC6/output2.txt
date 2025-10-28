@@ -1,0 +1,35 @@
+Derivando por P9: Factor -> num
+Derivando por P8: TermTail → epsilon
+Derivando por P5: Term → Factor TermTail
+Derivando por P9: Factor -> num
+Derivando por P8: TermTail → epsilon
+Derivando por P5: Term → Factor TermTail
+Derivando por P4: ExprTail → epsilon
+Derivando por P2: ExprTail → sum Term ExprTail
+Derivando por P1: Expr → Term ExprTail
+That's all folks!
+
+Derivando por P9: Factor -> num
+Derivando por P8: TermTail → epsilon
+Derivando por P5: Term → Factor TermTail
+Derivando por P9: Factor -> num
+Derivando por P8: TermTail → epsilon
+Derivando por P5: Term → Factor TermTail
+Derivando por P4: ExprTail → epsilon
+Derivando por P3: ExprTail → sub Term ExprTail
+Derivando por P1: Expr → Term ExprTail
+Derivando por P10: Factor -> pa Expr pf
+Derivando por P9: Factor -> num
+Derivando por P9: Factor -> num
+Derivando por P8: TermTail → epsilon
+Derivando por P7: TermTail → div Factor TermTail
+Derivando por P5: Term → Factor TermTail
+Derivando por P4: ExprTail → epsilon
+Derivando por P1: Expr → Term ExprTail
+Derivando por P10: Factor -> pa Expr pf
+Derivando por P8: TermTail → epsilon
+Derivando por P6: TermTail → mul Factor TermTail
+Derivando por P5: Term → Factor TermTail
+Derivando por P4: ExprTail → epsilon
+Derivando por P1: Expr → Term ExprTail
+That's all folks!

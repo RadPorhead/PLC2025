@@ -2,7 +2,7 @@
     {
         "cod": "A01",
         "nome": "agua 0.5L",
-        "quant": 9,
+        "quant": 10,
         "preco": 0.7
     },
     {
@@ -44,7 +44,7 @@
     {
         "cod": "D01",
         "nome": "cafe 20cl",
-        "quant": 6,
+        "quant": 5,
         "preco": 1.0
     },
     {
