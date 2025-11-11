@@ -1,0 +1,43 @@
+program BasicTypes(input, output);
+
+const
+  MaxSize = 10;
+  Pi = 3.14159;
+  Welcome = 'HELLO';
+  
+type
+  Index = 1..MaxSize;
+  RealArray = array[Index] of real;
+  Name = packed array[1..5] of char;
+
+  Person = record
+    Id: integer;
+    Age: integer;
+    Initials: Name;
+  end;
+
+var
+  i, j: integer;
+  Sum: real;
+  Values: RealArray;
+  P: Person;
+
+begin
+  Sum := 0.0;
+  for i := 1 to MaxSize do
+  begin
+    Values[i] := i * 1.5;
+    Sum := Sum + Values[i];
+  end;
+
+  P.Id := 1;
+  P.Age := 25;
+  P.Initials[1] := 'A';
+  P.Initials[2] := 'B';
+  P.Initials[3] := 'C';
+  P.Initials[4] := 'D';
+  P.Initials[5] := 'E';
+
+  writeln('Sum = ', Sum:0:2);
+  writeln('Person age = ', P.Age);
+end.

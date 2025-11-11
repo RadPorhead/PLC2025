@@ -1,0 +1,55 @@
+program ControlFlow(input, output);
+
+const
+  Limit = 5;
+
+var
+  x, y: integer;
+
+procedure PrintSeries(n: integer);
+var
+  i: integer;
+begin
+  writeln('Series:');
+  for i := 1 to n do
+    writeln('i = ', i);
+end;
+
+function Factorial(n: integer): integer;
+var
+  f, i: integer;
+begin
+  f := 1;
+  for i := 1 to n do
+    f := f * i;
+  Factorial := f;
+end;
+
+begin
+  x := 3;
+  y := Factorial(x);
+  writeln('Factorial of ', x, ' = ', y);
+
+  if y > 5 then
+    writeln('Greater than 5')
+  else
+    writeln('Less or equal to 5');
+
+  case x of
+    1: writeln('One');
+    2, 3: writeln('Two or Three');
+  else
+    writeln('Other');
+  end;
+
+  PrintSeries(Limit);
+
+  repeat
+    y := y - 1;
+  until y = 0;
+
+  while x < Limit do
+  begin
+    x := x + 1;
+  end;
+end.
