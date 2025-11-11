@@ -1,4 +1,4 @@
-Construção de um Compilador para Pascal Standard
+# Construção de um Compilador para Pascal Standard
 
 Excluímos do nosso projeto as seguintes coisas:
 
