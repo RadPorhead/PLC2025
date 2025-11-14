@@ -1,0 +1,59 @@
+program NestedRecords(input, output);
+
+type
+  Grade = (A, B, C, D, F);
+  Student = record
+    Id: integer;
+    Name: packed array[1..10] of char;
+    Scores: array[1..3] of integer;
+    FinalGrade: Grade;
+  end;
+
+  ClassArray = array[1..3] of Student;
+
+var
+  Students: ClassArray;
+  i, j, total: integer;
+
+procedure ComputeGrades(var Group: ClassArray);
+var
+  avg: real;
+  k: integer;
+begin
+  for k := 1 to 3 do
+  begin
+    avg := (Group[k].Scores[1] + Group[k].Scores[2] + Group[k].Scores[3]) / 3.0;
+    if avg >= 90.0 then
+      Group[k].FinalGrade := A
+    else if avg >= 80.0 then
+      Group[k].FinalGrade := B
+    else if avg >= 70.0 then
+      Group[k].FinalGrade := C
+    else
+      Group[k].FinalGrade := F;
+  end;
+end;
+
+function SumArray(var A: array[1..3] of integer): integer;
+var
+  s, n: integer;
+begin
+  s := 0;
+  for n := 1 to 3 do
+    s := s + A[n];
+  SumArray := s;
+end;
+
+begin
+  for i := 1 to 3 do
+  begin
+    Students[i].Id := i;
+    for j := 1 to 3 do
+      Students[i].Scores[j] := 70 + i * j;
+  end;
+
+  ComputeGrades(Students);
+
+  total := SumArray(Students[1].Scores);
+  writeln('Total score of first student = ', total);
+end.

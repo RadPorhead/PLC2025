@@ -1,6 +1,6 @@
 import ply.yacc as yacc
 import sys
-from lex.analex import tokens, literals
+from analex import tokens, literals
 
 def p_grammar(p):
     """
@@ -9,11 +9,7 @@ def p_grammar(p):
     program_heading         : PROGRAM ID '(' id_list ')'
                             | PROGRAM ID
 
-    block                   : const_def_part type_def_part var_dec_part proc_func_dec_part compound_statement 
-
-    lcont                   : 
-                            | ',' INT lcont
-
+    block                   : const_def_part type_def_part var_dec_part proc_func_dec_part compound_statement
 
     const_def_part          : 
                             | CONST const_def ';' ccont
@@ -49,9 +45,9 @@ def p_grammar(p):
                             | ID
                             | sign ID
                             | CHAR
-                            | STR
+                            | STRING
 
-    type_def                : ID = tipo <! o livro usa type_denoter em vez de tipo >
+    type_def                : ID '=' tipo
 
     tipo                    : ID
                             | new_type
@@ -99,7 +95,7 @@ def p_grammar(p):
                             | INT
                             | REAL
                             | CHAR
-                            | STR
+                            | STRING
                             | ID actual_param_list
                             | '(' expr ')'
                             | NOT factor
@@ -138,7 +134,6 @@ def p_grammar(p):
     simple_statement        :
                             | assignment_statement
                             | proc_statement
-                            | goto_statement
 
     assignment_statement    : var_access ASSIGN expr
 

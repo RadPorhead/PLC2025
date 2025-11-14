@@ -3,7 +3,7 @@ import sys
 
 # Palavras reservadas
 reserved = ['AND', 'ARRAY', 'BEGIN', 'CONST', 'DIV', 'DO', 'DOWNTO', 'ELSE', 'END', 'FOR', 'FUNCTION', 'IF', 'IN', 
-            'MOD', 'NOT', 'OF', 'OR', 'PROCEDURE', 'PROGRAM', 'THEN', 'TO', 'TYPE', 'VAR', 'WHILE', 'WITH']
+            'MOD', 'NOT', 'OF', 'OR', 'PROCEDURE', 'PROGRAM', 'THEN', 'TO', 'TYPE', 'VAR', 'WHILE']
 
 tokens = [
     'ID', 'INT', 'REAL', 'STRING', 'CHAR', 
@@ -60,8 +60,3 @@ def t_error(t):
     t.lexer.skip(1)
 
 lexer = lex.lex(reflags=lex.re.IGNORECASE) #Pascal é case insensitive
-
-
-lexer.input(sys.stdin.read())
-for tok in lexer:
-    print(tok)
