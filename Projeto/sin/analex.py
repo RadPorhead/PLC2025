@@ -3,7 +3,7 @@ import sys
 
 # Palavras reservadas
 reserved = ['AND', 'ARRAY', 'BEGIN', 'CONST', 'DIV', 'DO', 'DOWNTO', 'ELSE', 'END', 'FOR', 'FUNCTION', 'IF', 'IN', 
-            'MOD', 'NOT', 'OF', 'OR', 'PROCEDURE', 'PROGRAM', 'THEN', 'TO', 'TYPE', 'VAR', 'WHILE']
+            'MOD', 'NOT', 'OF', 'OR', 'PROCEDURE', 'PROGRAM', 'THEN', 'TO', 'VAR', 'WHILE']
 
 tokens = [
     'ID', 'INT', 'REAL', 'STRING', 'CHAR', 
