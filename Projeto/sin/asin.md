@@ -45,10 +45,10 @@ type_def                : ID = tipo <! o livro usa type_denoter em vez de tipo >
 tipo                    : ID
                         | new_type
 
-new_type               : enumerated_type
+new_type                : enumerated_type
                         | subrange_type
-                        | PACKED unpacked_structured_type
-                        | unpacked_structured_type
+                        | PACKED array_type
+                        | array_type
 
 enumerated_type         : '(' id_list ')'
 
@@ -56,8 +56,6 @@ id_list                 : ID
                         | ID ',' id_list
 
 subrange_type           : constant DOTDOT constant
-
-unpacked_structured_type: array_type
 
 array_type              : ARRAY '['  ordinal_type acont ']' OF tipo
 
@@ -72,6 +70,14 @@ ordinal_type            : enumerated_type
 
 var_dec                 : id_list ':' tipo
 
+var_access              : ID
+                        | indexed_var
+
+indexed_var             : var_access '[' expression, expression_sequence ']'
+
+expression_sequence     :
+                        | , expression expression_sequence
+
 compound_statement      : BEGIN statement statement_sequence END
 
 statement_sequence      : 
@@ -84,15 +90,15 @@ statement               : simple_statement
 
 simple_statement        :
                         | assignment_statement
-                        | procedure_statement
+                        | proc_statement
                         | goto_statement
 
 assignment_statement    : variable_access ASSIGN expression
                         | ID ASSIGN expression
 
-procedure_statement     : procedure_id procedure_id_cont
+proc_statement          : proc_id proc_id_cont
 
-procedure_id_cont       : actual_param_list
+proc_id_cont            : actual_param_list
                         | 
                         | read_param_list
                         | readln_param_list
@@ -107,7 +113,7 @@ actual_param_cont       :
 
 actual_param            : expression
                         | variable_access
-                        | procedure_id
+                        | proc_id
                         | function_id
 
 read_param_list         : '(' var_access var_access_sequence ')'
@@ -130,7 +136,9 @@ write_param             : expression
                         | expression ':' expression
                         | expression ':' expression ':' expression
 
-writeln_param_list  :
+writeln_param_list      :
                         | write_param_list
 
-<! Falta expression, variable_access,function_id,goto_statement,procedure_statement,structured_statement>
+<! Falta expression, variable_access,function_id,structured_statement, proc_dec, func_dec>
+
+goto_statement          : GOTO label

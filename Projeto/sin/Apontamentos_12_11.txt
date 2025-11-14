@@ -1,3 +1,0 @@
-file-variable = variable-access
-
-Ver possível erro chat do assignment_sequence
