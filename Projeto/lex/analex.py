@@ -2,10 +2,8 @@ import ply.lex as lex
 import sys
 
 # Palavras reservadas
-reserved = ['AND', 'ARRAY', 'BEGIN', 'CASE', 'CONST', 'DIV', 'DO', 'DOWNTO', 'ELSE', 'END', 'FILE', 'FOR', 'FUNCTION', 'GOTO', 'IF', 'IN', 'LABEL', 
-            'MOD', 'NOT', 'OF', 'OR', 'PACKED', 'PROCEDURE', 'PROGRAM', 'RECORD', 'REPEAT', 'SET', 'THEN', 'TO', 'TYPE', 'UNTIL', 'VAR', 'WHILE', 'WITH', 
-            'TRUE', 'FALSE', 
-            'FORWARD']
+reserved = ['AND', 'ARRAY', 'BEGIN', 'CONST', 'DIV', 'DO', 'DOWNTO', 'ELSE', 'END', 'FOR', 'FUNCTION', 'IF', 'IN', 
+            'MOD', 'NOT', 'OF', 'OR', 'PROCEDURE', 'PROGRAM', 'THEN', 'TO', 'TYPE', 'VAR', 'WHILE', 'WITH']
 
 tokens = [
     'ID', 'INT', 'REAL', 'STRING', 'CHAR', 
@@ -28,12 +26,12 @@ def t_COMMENT(t):
     pass
 
 def t_REAL(t):
-    r'[\+\-]?\d+(?:(?:\.\d+(?:[eE][\+\-]?\d+)?)|(?:[eE][\+\-]?\d+))'
+    r'\d+(?:(?:\.\d+(?:[eE][\+\-]?\d+)?)|(?:[eE][\+\-]?\d+))'
     t.value = float(t.value)
     return t
 
 def t_INT(t):
-    r'[\+\-]?\d+'
+    r'\d+'
     t.value = int(t.value)
     return t
 

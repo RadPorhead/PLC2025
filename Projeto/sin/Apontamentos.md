@@ -1,6 +1,10 @@
 # Diferenças em relação ao livro
 ```
+label-declaration-part = label_dec
+
 statement-part = compound_statement
+
+character-string = CHAR | STR
 
 constant-identier = ID
 
@@ -35,11 +39,22 @@ variable-identifier = ID
 
 component-variable = indexed_var
 array-variable = var_access
-index-expression = expression
+index-expression = expr
 
 file-variable = variable-access
 
+bound-identifier = ID
 
+conditional-statement = if_statement
+
+repetitive-statement = while_statement | for_statement
+
+Boolean-expression = exprs
+
+directive = ID
+
+procedure-identification = PROCEDURE ID
+result-type = ID
 ```
 
 # Coisas ignoradas
@@ -51,4 +66,5 @@ file-variable = variable-access
 - field-designator
 - identified-variable
 - buffer_variable
+- with_statement
 

@@ -2,6 +2,8 @@
 
 Excluímos do nosso projeto as seguintes coisas:
 
+- conformant arrays
+- packed
 - type 
 - record 
 - set 

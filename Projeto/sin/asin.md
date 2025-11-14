@@ -1,9 +1,5 @@
-<! compound_statement é um mau nome >
-
-block                   : label_dec const_def_part type_def_part var_dec_part proc_func_dec_part compound_statement 
-
-label_dec               : 
-                        | LABEL INT lcont ';'
+```
+block                   : const_def_part type_def_part var_dec_part proc_func_dec_part compound_statement 
 
 lcont                   : 
                         | ',' INT lcont
@@ -33,12 +29,17 @@ proc_func_dec_part      :
 
 const_def               : ID '=' constant
 
-constant                : INT
+sign                    : '+'
+                        | '-'
+
+constant                : sign INT
+                        | INT
+                        | sign REAL
                         | REAL
                         | ID
-                        | '+' ID
-                        | '-' ID
+                        | sign ID
                         | CHAR
+                        | STR
 
 type_def                : ID = tipo <! o livro usa type_denoter em vez de tipo >
 
@@ -47,7 +48,6 @@ tipo                    : ID
 
 new_type                : enumerated_type
                         | subrange_type
-                        | PACKED array_type
                         | array_type
 
 enumerated_type         : '(' id_list ')'
@@ -66,17 +66,54 @@ ordinal_type            : enumerated_type
                         | subrange_type
                         | ID
 
-<! falta proc_func_dec_part, compound_statement e falta o que está antes e depois do bloco>
-
 var_dec                 : id_list ':' tipo
 
 var_access              : ID
-                        | indexed_var
+                        | var_access '[' expr expr_sequence ']'
 
-indexed_var             : var_access '[' expression, expression_sequence ']'
+expr_sequence           :
+                        | ',' expr expr_sequence
 
-expression_sequence     :
-                        | , expression expression_sequence
+expr                    : simple_expr
+                        | simple_expr relation_op simple_expr
+
+simple_expr             : term term_sequence
+                        | sign term term_sequence
+
+term                    : factor factor_sequence
+
+term_sequence           :
+                        | add_op term term_sequence
+
+factor                  : var_access
+                        | INT
+                        | REAL
+                        | CHAR
+                        | STR
+                        | ID actual_param_list
+                        | '(' expr ')'
+                        | NOT factor
+
+factor_sequence         :
+                        | mul_op factor factor_sequence
+
+add_op                  : '+'
+                        | '-'
+                        | OR
+
+mul_op                  : '*'
+                        | '/'
+                        | DIV
+                        | MOD
+                        | AND
+
+relation_op             : '='
+                        | NE
+                        | '<'
+                        | '>'
+                        | LE
+                        | GE
+                        | IN
 
 compound_statement      : BEGIN statement statement_sequence END
 
@@ -85,21 +122,20 @@ statement_sequence      :
 
 statement               : simple_statement
                         | structured_statement
-                        | label ':' structured_statement
-                        | label ':' simple_statement
+                        | INT ':' structured_statement
+                        | INT ':' simple_statement
 
 simple_statement        :
                         | assignment_statement
                         | proc_statement
                         | goto_statement
 
-assignment_statement    : variable_access ASSIGN expression
-                        | ID ASSIGN expression
+assignment_statement    : var_access ASSIGN expr
 
-proc_statement          : proc_id proc_id_cont
+proc_statement          : ID proc_id_cont
 
-proc_id_cont            : actual_param_list
-                        | 
+proc_id_cont            : 
+                        | actual_param_list
                         | read_param_list
                         | readln_param_list
                         | write_param_list
@@ -111,10 +147,8 @@ actual_param_list       : '(' actual_param actual_param_cont ')'
 actual_param_cont       :
                         | ',' actual_param
 
-actual_param            : expression
-                        | variable_access
-                        | proc_id
-                        | function_id
+actual_param            : expr
+                        | var_access
 
 read_param_list         : '(' var_access var_access_sequence ')'
                         
@@ -132,13 +166,61 @@ write_param_sequence    :
                         | ',' write_param write_param_sequence
 
 
-write_param             : expression
-                        | expression ':' expression
-                        | expression ':' expression ':' expression
+write_param             : expr
+                        | expr ':' expr
+                        | expr ':' expr ':' expr
 
 writeln_param_list      :
                         | write_param_list
 
-<! Falta expression, variable_access,function_id,structured_statement, proc_dec, func_dec>
+structured_statement    : compound_statement
+                        | if_statement
+                        | while_statement
+                        | for_statement
 
-goto_statement          : GOTO label
+
+if_statement            : IF expr THEN statement
+                        | IF expr THEN statement ELSE statement
+
+while_statement         : WHILE expr DO statement
+
+for_statement           : FOR ID ASSIGN expr TO expr DO statement
+                        | FOR ID ASSIGN expr DOWNTO expr DO statement
+
+proc_dec                : proc_heading ';' block
+                        | PROCEDURE ID ';' block
+
+proc_heading            : PROCEDURE ID
+                        | PROCEDURE ID formal_param_list
+
+func_dec                : FUNCTION ID ';' block
+                        | func_heading ';' block
+
+func_heading            : FUNCTION ID ':' ID
+                        | FUNCTION ID formal_param_list ':' ID
+
+formal_param_list       : '(' formal_param_section fcont ')'
+
+fcont                   : 
+                        | ';' formal_param_section fcont
+
+formal_param_section    : id_list ':' ID
+                        | VAR id_list ':' ID
+                        | proc_heading
+                        | func_heading
+                        | id_list ':' conformant_array_schema
+                        | VAR id_list ':' conformant_array_schema
+
+conformant_array_schema : ARRAY '[' index_type_specification icont ']' OF ID
+                        | ARRAY '[' index_type_specification icont ']' OF conformant_array_schema
+
+icont                   : 
+                        | ';' index_type_specification
+
+index_type_specification: ID DOTDOT ID ':' ID
+
+program                 : program_heading ';' block '.'
+
+program_heading         : PROGRAM ID '(' id_list ')'
+                        | PROGRAM ID
+```
