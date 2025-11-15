@@ -1,0 +1,62 @@
+PROGRAM Teste (x, y);
+
+CONST
+    Max = 10;
+    Limite = Max;
+
+VAR
+    i, j : INTEGER;
+    a : ARRAY[1..Max, 1..3] OF INTEGER;
+    v : ARRAY[0..5] OF INTEGER;
+    flag : BOOLEAN;
+
+PROCEDURE Incrementa(VAR x : INTEGER);
+BEGIN
+    x := x + 1;
+END;
+
+FUNCTION Soma3(a, b, c : INTEGER) : INTEGER;
+BEGIN
+    Soma3 := a + b + c;
+END;
+
+FUNCTION Fatorial(n : INTEGER) : INTEGER;
+VAR
+    r : INTEGER;
+BEGIN
+    r := 1;
+    FOR i := 1 TO n DO
+        r := r * i;
+    Fatorial := r;
+END;
+
+BEGIN
+    READ(i);
+    READLN(j);
+
+    v[0] := 1;
+    v[1] := i;
+    v[2] := j;
+
+    a[1,1] := Soma3(v[0], v[1], v[2]);
+    a[1,2] := Fatorial(5);
+    a[1,3] := 0;
+
+    IF a[1,1] > a[1,2] THEN
+        flag := TRUE
+    ELSE
+        flag := FALSE;
+
+    WHILE flag DO
+    BEGIN
+        WRITE('Valor: ', a[1,1]);
+        Incrementa(a[1,1]);
+        IF a[1,1] > Limite THEN
+            flag := FALSE;
+    END;
+
+    FOR i := 0 TO 5 DO
+        v[i] := v[i] + 1;
+
+    WRITELN('Final: ', a[1,1], ' ', v[0], ' ', v[5]);
+END.

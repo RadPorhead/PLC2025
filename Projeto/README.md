@@ -9,7 +9,6 @@ Excluímos do nosso projeto as seguintes coisas:
 - set 
 - file 
 - pointer / ^ 
-- Arrays multidimensionais 
 - goto / label 
 - with 
 - case 
