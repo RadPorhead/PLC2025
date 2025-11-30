@@ -64,8 +64,7 @@ def p_const_list(p):
     if len(p) == 3:
         p[0] = [p[1]]
     else:
-        p[1].append(p[2])
-        p[0] = p[1]
+        p[0] = p[1] + [p[2]]
 
 def p_const_def(p):
     """
@@ -82,11 +81,18 @@ def p_constant(p):
              | CHAR
              | STRING
              | ID
+             | TRUE
+             | FALSE
     """
+
     if len(p) == 3:
         sign = -1 if p[1] == '-' else 1
         p[0] = Literal(sign * p[2])
-    elif isinstance(p[1], str) and p.slice[1].type == 'ID':
+    elif isinstance(p[1], str) and p[1].upper() == 'TRUE':
+        p[0] = Literal(True)
+    elif isinstance(p[1], str) and p[1].upper() == 'FALSE':
+        p[0] = Literal(False)
+    elif p.slice[1].type == 'ID': 
         p[0] = VarAccess(p[1], [])
     else:
         p[0] = Literal(p[1])
@@ -120,8 +126,7 @@ def p_var_list(p):
     if len(p) == 3:
         p[0] = [p[1]]
     else:
-        p[1].append(p[2])
-        p[0] = p[1]
+        p[0] = p[1] + [p[2]]
 
 def p_var_dec(p):
     """
@@ -206,8 +211,7 @@ def p_procfunc_part(p):
     if len(p) == 1:
         p[0] = []
     else:
-        p[1].append(p[2])
-        p[0] = p[1]
+        p[0] = p[1] + [p[2]]
 
 def p_proc_dec(p):
     """
@@ -248,14 +252,18 @@ def p_param_list(p):
     param_list : param
                | param_list ';' param
     """
-    p[0] = [p[1]] if len(p) == 2 else p[1] + [p[3]]
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = p[1] + [p[3]]
 
 def p_param(p):
     """
     param : id_list ':' ID
           | VAR id_list ':' ID
     """
-    if p[1] == 'VAR':
+
+    if isinstance(p[1], str) and p[1].upper() == 'VAR':
         p[0] = Param(p[2], Type(p[4]), byref=True)
     else:
         p[0] = Param(p[1], Type(p[3]))
@@ -279,8 +287,7 @@ def p_var_suffix(p):
     if len(p) == 1:
         p[0] = []
     else:
-        p[4].insert(0, p[2])
-        p[0] = p[4]
+        p[0] = [p[2]] + p[4]
 
 
 #
@@ -372,17 +379,23 @@ def p_factor(p):
            | ID '(' expr_list ')'
            | '(' expr ')'
            | NOT factor
+           | TRUE
+           | FALSE
     """
     if isinstance(p[1], VarAccess):
         p[0] = p[1]
+    elif isinstance(p[1], str) and p[1].upper() == 'TRUE':
+        p[0] = Literal(True)
+    elif isinstance(p[1], str) and p[1].upper() == 'FALSE':
+        p[0] = Literal(False)
+    elif p.slice[1].type == 'ID':
+        p[0] = Call(p[1], p[3])
     elif isinstance(p[1], int) or isinstance(p[1], float) or isinstance(p[1], str):
         p[0] = Literal(p[1])
     elif p[1] == '(':
         p[0] = p[2]
-    elif p[1] == 'NOT':
+    elif p[1].upper() == 'NOT':
         p[0] = UnOp('NOT', p[2])
-    else:
-        p[0] = Call(p[1], p[3])
 
 def p_add_op(p):
     """
@@ -474,7 +487,7 @@ def p_read_statement(p):
                    | READLN
                    | READLN '(' var_access_list ')'
     """
-    if p[1] == 'READ':
+    if p[1].upper() == 'READ':
         p[0] = Read(p[3])
     else:
         if len(p) == 2:
@@ -495,7 +508,7 @@ def p_write_statement(p):
                     | WRITELN
                     | WRITELN '(' write_list ')'
     """
-    if p[1] == 'WRITE':
+    if p[1].upper() == 'WRITE':
         p[0] = Write(p[3], newline=False)
     else:
         if len(p) == 2:
@@ -516,7 +529,13 @@ def p_write_param(p):
                 | expr ':' expr
                 | expr ':' expr ':' expr
     """
-    p[0] = p[1] if len(p) == 2 else [p[i] for i in range(1, len(p), 2)]
+    if len(p) == 2:
+        p[0] = p[1]
+    elif len(p) == 4:
+        p[0] = (p[1], p[3])
+    else:
+        p[0] = (p[1], p[3], p[5])
+
 
 def p_if_statement(p):
     """
@@ -539,7 +558,7 @@ def p_for_statement(p):
     for_statement : FOR ID ASSIGN expr TO expr DO statement
                   | FOR ID ASSIGN expr DOWNTO expr DO statement
     """
-    if p[5] == 'TO':
+    if p[5].upper() == 'TO':
         p[0] = For(p[2], p[4], p[6], p[8])
     else:
         p[0] = For(p[2], p[4], p[6], p[8], downto=True)

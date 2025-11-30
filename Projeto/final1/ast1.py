@@ -43,14 +43,14 @@ class Func(Node):
     def __init__(self, name, params, rettype, block):
         self.name = name
         self.params = params or []
-        self.rettype = rettype # Alterar nome / Perceber este nome
+        self.rettype = rettype # tipo de retorno da função (procedimentos não têm)
         self.block = block
 
 class Param(Node):
     def __init__(self, names, type_, byref=False):
         self.names = names
         self.type = type_
-        self.byref = byref # Alterar nome / Perceber este nome
+        self.byref = byref # para parâmetros passados por referência
 
 
 #

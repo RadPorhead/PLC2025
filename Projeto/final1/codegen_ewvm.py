@@ -28,7 +28,7 @@ class CodeGenerator:
         self.code.append(instr)
 
     def new_label(self, prefix='L'):
-        lab = f"{prefix.upper()}{self.label_count}"
+        lab = f"{prefix}{self.label_count}"
         self.label_count += 1
         return lab
 
@@ -360,8 +360,8 @@ class CodeGenerator:
                 self.gen_statement(node.elsestmt)
             self.place_label(lend)
         elif cls == "While":
-            lstart = self.new_label("Lwhilestart")
-            lend = self.new_label("Lwhileend")
+            lstart = self.new_label("Lwhile_start")
+            lend = self.new_label("Lwhile_end")
             self.place_label(lstart)
             self.gen_expr(node.cond)
             self.emit(f"JZ {lend}")
