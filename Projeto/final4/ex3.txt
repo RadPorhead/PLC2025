@@ -3,7 +3,7 @@ var
   num, i: integer; 
   primo: boolean; 
 begin 
-  writeln('Introduza um número inteiro positivo:'); 
+  writeln('Introduza um numero inteiro positivo:'); 
   readln(num); 
   primo := true; 
   i := 2; 
@@ -14,7 +14,7 @@ begin
         i := i + 1; 
     end; 
   if primo then 
-    writeln(num, ' é um número primo') 
+    writeln(num, ' e um numero primo') 
   else 
-    writeln(num, ' não é um número primo') 
+    writeln(num, ' nao e um numero primo') 
 end.

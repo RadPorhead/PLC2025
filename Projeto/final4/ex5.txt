@@ -21,10 +21,10 @@ var
   bin: string; 
   valor: integer; 
 begin 
-  writeln('Introduza uma string binária:'); 
+  writeln('Introduza uma string binaria:'); 
   readln(bin); 
    
   valor := BinToInt(bin); 
    
-  writeln('O valor inteiro correspondente é: ', valor); 
+  writeln('O valor inteiro correspondente e: ', valor); 
 end.
