@@ -1,6 +1,6 @@
-# Construção de um Compilador para Pascal Standard
+# Compilador para Pascal Standard
 
-Limitations / Known Unsupported Features:
+Limitações / Funcionalidades não suportadas:
 
 
 

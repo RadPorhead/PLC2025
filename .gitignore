@@ -1,9 +1,4 @@
 *.pyc
 __pycache__/
 Projeto/Pascal\ Standard.pdf
-Projeto/colega/*
-Projeto/final1/*
-Projeto/final2/*
-Projeto/final3/*
-Projeto/lex/*
-Projeto/sin/*
+Projeto/old/*
