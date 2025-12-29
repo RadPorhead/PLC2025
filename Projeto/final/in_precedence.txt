@@ -1,0 +1,6 @@
+program T; { Programa de teste }
+var x : integer; 
+begin
+  x := 2 + 3 * 4; { atribuição simples }
+  writeln(x);
+end.

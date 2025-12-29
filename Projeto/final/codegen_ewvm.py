@@ -1,5 +1,3 @@
-# codegen_ewvm.py
-
 from typing import List, Dict, Tuple, Optional
 from ast1 import *
 
@@ -30,7 +28,7 @@ class CodeGenerator:
         self.next_gp = 0
         self.next_local = 0
 
-    # --- utilitários de emissão
+    
     def emit(self, instr: str):
         self.code.append(instr)
 
@@ -40,7 +38,7 @@ class CodeGenerator:
     def new_label(self, base='L'):
         return self.labelgen.new(base)
 
-    # --- alocação de memória para variáveis (suporta arrays com SubrangeType)
+    # alocação de memória para variáveis
     def size_of_type(self, type_node):
         if type(type_node).__name__ == 'Type':
             return 1
@@ -90,7 +88,6 @@ class CodeGenerator:
         self.next_local += sz
         return idx
 
-    # localizar variável (resolva gp / fp / param_byref)
     def lookup_var(self, name) -> Tuple[str, int, Dict]:
         if name in self.current_locals:
             meta = self.current_locals[name]
@@ -98,14 +95,10 @@ class CodeGenerator:
         if name in self.globals:
             meta = self.globals[name]
             return ('gp', meta['idx'], meta)
-        # criar global automaticamente (pragmático)
         self.globals[name] = {'idx': self.next_gp, 'size': 1, 'type': None}
         self.next_gp += 1
         return ('gp', self.globals[name]['idx'], self.globals[name])
 
-    # ----------------------
-    # inferência de tipo (agora método da classe)
-    # ----------------------
     def infer_type(self, expr):
         if expr is None:
             return None
@@ -135,8 +128,6 @@ class CodeGenerator:
                     return "float"
                 if name == "STRING":
                     return "string"
-            # arrays -> o tipo relevante pode ser elemtype se houver sufixes,
-            # mas aqui sem contexto devolvemos tipo do identificador
             return None
 
         # Operadores binários
@@ -152,19 +143,14 @@ class CodeGenerator:
             # fallback inteiro
             return "int"
 
-        # UnOp herda tipo do operando
         if isinstance(expr, UnOp):
             return self.infer_type(expr.expr)
 
-        # chamadas: desconhecido sem tabela de símbolos de funções
         if isinstance(expr, Call):
             return None
 
         return None
 
-    # -------------
-    # geração top-level
-    # -------------
     def generate_program(self, program: Program) -> str:
         self.emit("START")
         self.allocate_globals(program.block.vars)
@@ -336,7 +322,6 @@ class CodeGenerator:
                 if v.suffixes and isinstance(tdecl, ArrayType):
                     tdecl = tdecl.elemtype
                 if tdecl and hasattr(tdecl, 'name') and tdecl.name.upper() in ('REAL', 'FLOAT'):
-                    # ler string -> converter para float via ATOI+ITOF não é ideal; mantemos ATOI se a implementação da VM for esta.
                     self.emit("ATOI")
                     self.emit("ITOF")
                 else:
@@ -386,7 +371,6 @@ class CodeGenerator:
             elif isinstance(v, int):
                 self.emit(f"PUSHI {v}")
             elif isinstance(v, float):
-                # representar floats com ponto
                 self.emit(f"PUSHF {v}")
             elif isinstance(v, str):
                 if v.upper() == 'TRUE':
@@ -425,7 +409,6 @@ class CodeGenerator:
             elif op == '*':
                 self.emit("FMUL" if use_float else "MUL")
             elif op == '/':
-                # em Pascal '/' é divisão real
                 if use_float:
                     self.emit("FDIV")
                 else:
@@ -467,7 +450,6 @@ class CodeGenerator:
         elif t == "Call":
             func_label = self.func_labels.get(expr.name, f"FUNC_{expr.name}")
             for arg in expr.args:
-                # simplificação: empilha valores (byval). byref exige convenção com assinatura.
                 self.generate_expr(arg)
             self.emit(f"PUSHA {func_label}")
             self.emit("CALL")

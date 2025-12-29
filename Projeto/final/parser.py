@@ -380,22 +380,18 @@ def p_factor(p):
            | TRUE
            | FALSE
     """
-    # Se a regra for complexa (Parêntesis, NOT ou Função)
     if len(p) > 2:
         if p[1] == '(':
-            p[0] = p[2]  # Remove os parêntesis e fica com a expressão de dentro
+            p[0] = p[2]
         elif isinstance(p[1], str) and p[1].upper() == 'NOT':
             p[0] = UnOp('NOT', p[2])
         else:
-            # Se não é '(' nem 'NOT', sobra a regra: ID '(' expr_list ')'
             p[0] = Call(p[1], p[3])
             
-    # Se a regra for simples (Apenas 1 elemento)
     else:
         if isinstance(p[1], VarAccess):
             p[0] = p[1]
         else:
-            # INT, REAL, CHAR, STRING, ou ID isolado
             p[0] = Literal(p[1])
 
 def p_add_op(p):
@@ -576,5 +572,5 @@ parser.success = True
 ast = parser.parse(data)
 
 if parser.success:
-    print("Análise sintática concluída com sucesso.")
+    print("Analise sintatica concluida com sucesso.")
     print(generate_ewvm(ast))
