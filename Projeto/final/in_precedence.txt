@@ -1,6 +1,6 @@
 program T; { Programa de teste }
-var x : integer; 
+var x : real; 
 begin
-  x := 2 + 3 * 4; { atribuição simples }
+  x := 2 + 3.2 * 4; { atribuição simples }
   writeln(x);
 end.
