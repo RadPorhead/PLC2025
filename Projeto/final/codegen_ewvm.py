@@ -16,15 +16,12 @@ class CodeGenerator:
         self.postamble: List[str] = []
         self.labelgen = LabelGen()
 
-        # símbolos
         self.globals: Dict[str, Dict] = {}
         self.current_locals: Dict[str, Dict] = {}
         self.local_frames: List[Dict[str, Dict]] = []
 
-        # funções: name -> label
         self.func_labels: Dict[str, str] = {}
 
-        # ponteiros de alocação
         self.next_gp = 0
         self.next_local = 0
 
@@ -134,7 +131,6 @@ class CodeGenerator:
         if isinstance(expr, BinOp):
             lt = self.infer_type(expr.left)
             rt = self.infer_type(expr.right)
-            # comparadores produzem boolean (mapeado para int)
             if expr.op in ('=', '<', '>', '<=', '>=', '<>'):
                 return "int"
             # se qualquer lado for float -> float
@@ -457,7 +453,7 @@ class CodeGenerator:
             raise NotImplementedError(f"Expr tipo não suportado: {t}")
 
     # ---------------------------
-    # Array helpers (load/store)
+    # Arrays
     # ---------------------------
     def generate_load_from_array(self, varaccess: VarAccess):
         storage, base_idx, meta = self.lookup_var(varaccess.name)

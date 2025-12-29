@@ -95,8 +95,6 @@ def p_constant(p):
     else:
         p[0] = Literal(p[1])
 
-# p.slice dá coisas do tipo [constant, LexToken(ID,'Max',5,56)]
-
 def p_sign(p):
     """
     sign : '+'
